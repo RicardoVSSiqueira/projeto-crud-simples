@@ -1,23 +1,22 @@
-<?php include 'conexao.php'; 
+<?php 
+include 'conexao.php';
 
+$pageTitle = "Notas dos Alunos";
 include 'includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>Notas</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<h3 class="mb-3">📊 Notas dos Alunos</h3>
 
-<body class="bg-light">
+<a href="notas_form.php" class="btn btn-primary mb-3">
+    <i class="bi bi-plus-circle"></i> Novo
+</a>
 
-<div class="container mt-5">
-
-<h3>📊 Notas dos Alunos</h3>
-
-<a href="notas_form.php" class="btn btn-primary mb-3">+ Novo</a>
+<!-- ALERTA -->
+<?php if(isset($_GET['msg']) && $_GET['msg'] == 'sucesso'): ?>
+    <div class="alert alert-success">
+        Nota cadastrada com sucesso!
+    </div>
+<?php endif; ?>
 
 <?php
 $resumo = mysqli_query($conn, "
@@ -32,23 +31,25 @@ $r = mysqli_fetch_assoc($resumo);
 
 <div class="row mb-4">
 <div class="col-md-3"><div class="card bg-primary text-white p-3">Lançamentos: <?= $r['total'] ?></div></div>
-<div class="col-md-3"><div class="card bg-success text-white p-3">Maior Media: <?= number_format($r['maior'],2) ?></div></div>
-<div class="col-md-3"><div class="card bg-danger text-white p-3">Menor Media: <?= number_format($r['menor'],2) ?></div></div>
-<div class="col-md-3"><div class="card bg-info text-white p-3">Média Geral: <?= number_format($r['media'],2) ?></div></div>
+<div class="col-md-3"><div class="card bg-success text-white p-3">Maior: <?= number_format($r['maior'],2) ?></div></div>
+<div class="col-md-3"><div class="card bg-danger text-white p-3">Menor: <?= number_format($r['menor'],2) ?></div></div>
+<div class="col-md-3"><div class="card bg-info text-white p-3">Média: <?= number_format($r['media'],2) ?></div></div>
 </div>
 
 <table class="table table-bordered table-striped">
 <tr>
 <th>Aluno</th>
 <th>Bimestre</th>
-<th>Nota1</th>
-<th>Nota2</th>
-<th>Nota3</th>
+<th>N1</th>
+<th>N2</th>
+<th>N3</th>
 <th>Soma</th>
 <th>Média</th>
 <th>Ponderada</th>
+<th>Diferença</th>
 <th>Faltas</th>
 <th>Situação</th>
+<th>Ações</th>
 </tr>
 
 <?php
@@ -71,6 +72,8 @@ if ($media >= 7 && $d['faltas'] <= 10) {
 } else {
     $sit = "Reprovado";
 }
+
+$diferenca = ($media >= 7) ? 0 : (7.0 - $media);
 ?>
 
 <tr>
@@ -82,7 +85,9 @@ if ($media >= 7 && $d['faltas'] <= 10) {
 <td><?= number_format($soma,2) ?></td>
 <td><?= number_format($media,2) ?></td>
 <td><?= number_format($ponderada,2) ?></td>
+<td><?= number_format($diferenca,2) ?></td>
 <td><?= $d['faltas'] ?></td>
+
 <td>
 <span class="badge bg-<?=
 $sit == 'Aprovado' ? 'success' :
@@ -91,14 +96,22 @@ $sit == 'Aprovado' ? 'success' :
 <?= $sit ?>
 </span>
 </td>
+
+<td>
+    <a href="notas_editar.php?id=<?= $d['id'] ?>" >
+        <i class="bi bi-pencil"></i>
+    </a>
+    
+    <a href="notas_deletar.php?id=<?= $d['id'] ?>" 
+       onclick="return confirm('Tem certeza que deseja excluir esta nota?')">
+   <i class="bi bi-trash"></i>
+</a>
+</td>
+
 </tr>
 
 <?php endwhile; ?>
 
 </table>
 
-</div>
-<?php include 'includes/footer.php' ?>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>
