@@ -20,7 +20,7 @@ include 'includes/header.php';
 
 <a href="form.php">Novo</a><br><br> -->
 
-<table class="table table-hover">
+<table class="table table-striped table-hover">
   <tr>
     <th>Nome</th>
     <th>Email</th>
