@@ -11,13 +11,13 @@ if(!isset($pageTitle)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
 
-    <!-- Bootstrap -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Icons -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Estilo da Navbar -->
+    
     <style>
         .navbar-custom {
             background: linear-gradient(90deg, #4facfe, #00c6ff);
@@ -51,7 +51,7 @@ if(!isset($pageTitle)) {
 
 <body>
 
-<!-- NAVBAR -->
+
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
   <div class="container-fluid">
 
@@ -90,5 +90,5 @@ if(!isset($pageTitle)) {
   </div>
 </nav>
 
-<!-- CONTEÚDO -->
+
 <div class="container mt-4">

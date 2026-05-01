@@ -11,7 +11,7 @@ include 'includes/header.php';
     <i class="bi bi-plus-circle"></i> Novo
 </a>
 
-<!-- ALERTAS -->
+
 <?php if(isset($_GET['msg']) && $_GET['msg'] == 'sucesso'): ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         Nota cadastrada com sucesso!
